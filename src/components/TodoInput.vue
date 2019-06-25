@@ -12,20 +12,21 @@
 export default {
   data() {
     return {
-      newTodoItem: ""  //변수 초기화
+      newTodoItem: ""  // 변수 초기화
     };
   },
   methods: {
     // addTodo: function() {
-    //   if (this.newTodoItem !== "") {  //validation 체크
+    //   if (this.newTodoItem !== "") {  // validation 체크
     //     localStorage.setItem(this.newTodoItem, this.newTodoItem);
     //     this.clearInput();
     //   }
     // },
     addTodo: function() {
         if(this.newTodoItem !== "") {
-            var obj = {completed: false, item: this.newTodoItem};
-            localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+            // 컴포넌트 간의 통신이 필요함.
+            // 등록된 아이템이 바로 리스트에 보이도록.
+            this.$emit('addItemEvent', this.newTodoItem);
             this.clearInput();
         }    
     },

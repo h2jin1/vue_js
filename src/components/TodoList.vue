@@ -1,8 +1,9 @@
 <template>
   <div>
     <ul>
-      <li v-for="(todoItem, index) in todoItems" :key="index" class="shadow">
-        {{todoItem}}
+      <li v-for="(todoItem, index) in propsdata" :key="index" class="shadow">
+        <i class="fas fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem,index)"></i>
+        <span :class="{textCompleted:todoItem.completed}">{{todoItem.item}}</span>
         <span class="removeBtn" @click="removeTodo(todoItem, index)">
           <i class="fas fa-trash-alt"></i>
         </span>
@@ -15,22 +16,28 @@
 export default {
   data() {
     return {
-      todoItems: [] //배열 초기화
+      todoItems: [] // 배열 초기화
     };
   },
   created() {
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(localStorage.key(i));
+        if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
+          var itemJson = localStorage.getItem(localStorage.key(i));
+          this.todoItems.push(JSON.parse(itemJson));
+        }
       }
     }
   },
   methods: {
     removeTodo: function(todoItem, index) {
-      localStorage.removeItem(todoItem);
-      this.todoItems.splice(index, 1);
+        this.$emit('removeItemEvent', todoItem, index);
+    },
+    toggleComplete: function(todoItem, index) {
+        this.$emit('toggleOneItem', todoItem, index);
     }
-  }
+  },
+  props: ['propsdata']
 };
 </script>
 
