@@ -1,7 +1,8 @@
 <template>
-    <div>
-        <h1>Todo it!</h1>
-    </div>
+    <header>
+        <h1>{{ this.$store.state.headerText }}</h1>
+    </header>
+
 </template>
 
 <script>

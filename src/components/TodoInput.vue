@@ -17,6 +17,7 @@
 
 <script>
 import Modal from './common/Modal.vue';
+import { store } from '../store/store';
 export default {
   data() {
     return {
@@ -33,7 +34,8 @@ export default {
         if(this.newTodoItem !== "") {
           // 컴포넌트 간의 통신이 필요함.
           // 등록된 아이템이 바로 리스트에 보이도록.
-          this.$emit('addItemEvent', this.newTodoItem);
+          // this.$emit('addItemEvent', this.newTodoItem);
+          this.$store.commit('addTodo', this.newTodoItem);
           this.clearInput();
         } else {
           // this.showModal = true;
