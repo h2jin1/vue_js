@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  props: ['propsdata'],
   data() {
     return {
       todoItems: [] // 배열 초기화
@@ -34,10 +35,9 @@ export default {
         this.$emit('removeItemEvent', todoItem, index);
     },
     toggleComplete: function(todoItem, index) {
-        this.$emit('toggleOneItem', todoItem, index);
+        this.$emit('toggleItemEvent', todoItem, index);
     }
-  },
-  props: ['propsdata']
+  }
 };
 </script>
 
