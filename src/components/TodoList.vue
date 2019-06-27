@@ -3,10 +3,10 @@ import { store } from '../store/store';
   <div>
     <!-- <ul> -->
     <transition-group name="list" tag="ul">
-      <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="index" class="shadow">
-        <i class="fas fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem,index)"></i>
+      <li v-for="(todoItem, index) in getTodoItems" :key="index" class="shadow">
+        <i class="fas fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleOneItem({todoItem, index})"></i>
         <span :class="{textCompleted:todoItem.completed}">{{todoItem.item}}</span>
-        <span class="removeBtn" @click="removeTodo(todoItem, index)">
+        <span class="removeBtn" @click="removeTodo({todoItem, index})">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -16,6 +16,8 @@ import { store } from '../store/store';
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
   // props: ['propsdata'],
   data() {
@@ -33,15 +35,25 @@ export default {
   //     }
   //   }
   // },
+  computed: {
+    // getTodoItems() {
+    //         return this.$store.getters.getTodoItems;
+    // }
+    ...mapGetters(['getTodoItems'])
+
+  },
   methods: {
-    removeTodo: function(todoItem, index) {
-        // this.$emit('removeItemEvent', todoItem, index);
-        this.$store.commit('removeTodo', {todoItem, index});
-    },
-    toggleComplete: function(todoItem, index) {
-        //this.$emit('toggleItemEvent', todoItem, index);
-        this.$store.commit('toggleOneItem', {todoItem, index});
-    }
+    // removeTodo: function(todoItem, index) {
+    //     // this.$emit('removeItemEvent', todoItem, index);
+    //     this.$store.commit('removeTodo', {todoItem, index});
+    // },
+    // toggleComplete: function(todoItem, index) {
+    //     //this.$emit('toggleItemEvent', todoItem, index);
+    //     this.$store.commit('toggleOneItem', {todoItem, index});
+    // }
+    
+    ... mapMutations(['removeTodo', 'toggleOneItem']), // 객체로 {todoItem, index} 넘기는 부분을 위에 클릭 이벤트에 넣어줘야 함.
+    //...mapMutations( { remove: 'removeTodo' } ), // 배열 말고 객체로 넘기면 메소드 명을 key 값으로 변경해 줘야 함.
   }
 };
 </script>
