@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     methods: {
@@ -13,7 +13,9 @@ export default {
         //   // this.$emit('removeAllItemEvent');
         //   this.$store.commit('removeAllItem');
         // }
-        ...mapMutations(['removeAllItem'])
+
+        //...mapMutations(['removeAllItem'])
+        ...mapActions(['removeAllItem'])
     }
 }
 </script>
