@@ -44,7 +44,7 @@ export const store = new Vuex.Store({
                 context.commit('setTodoItems', items);
             });
         },
-        addTodo: function(context, payload) {
+        addTodoItem: function(context, payload) {
             axios.post(`${base_url}`, payload).then(res => res.data).then(items => {
                 context.commit('setTodoItems', items);
             });
@@ -55,7 +55,7 @@ export const store = new Vuex.Store({
             });
         },
         toggleOneItem: function(context, payload) {
-            axios.put(`${base_url}/${payload.id}/${payload.id}`).then(res => res.data).then(items => {
+            axios.put(`${base_url}/${payload.id}`, payload).then(res => res.data).then(items => {
                 context.commit('setTodoItems', items);
             });
         },
